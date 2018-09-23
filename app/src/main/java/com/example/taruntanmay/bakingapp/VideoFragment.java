@@ -1,11 +1,13 @@
 package com.example.taruntanmay.bakingapp;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,12 +38,21 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class VideoFragment extends Fragment {
+    @BindView(R.id.player_view)
     SimpleExoPlayerView playerView;
+    @BindView(R.id.tv_video_description)
     TextView videoDescription;
+    @BindView(R.id.btn_step_next)
     ImageButton nextStep;
+    @BindView(R.id.btn_step_previous)
     ImageButton previousStep;
+    @BindView(R.id.step_btn_layout)
     LinearLayout buttonLayout;
+    @BindView(R.id.iv_step_thumbnail)
     ImageView stepImage;
 
     private static final String VIDEO_POSITION = "videoPosition";
@@ -57,24 +68,25 @@ public class VideoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.videoplayerfragment, container, false);
-        playerView = (SimpleExoPlayerView)rootView.findViewById(R.id.player_view);
+    /*    playerView = (SimpleExoPlayerView)rootView.findViewById(R.id.player_view);
         videoDescription=rootView.findViewById(R.id.tv_video_description);
-        nextStep = rootView.findViewById(R.id.btn_step_next);
+        nextStep = rootView.findViewById(R.id.btn_step_next);*/
+        ButterKnife.bind(this,rootView);
         nextStep.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 nextStep();
             }
         });
-        previousStep = rootView.findViewById(R.id.btn_step_previous);
+   //     previousStep = rootView.findViewById(R.id.btn_step_previous);
         previousStep.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 previousStep();
             }
         });
-        buttonLayout = rootView.findViewById(R.id.step_btn_layout);
-        stepImage= rootView.findViewById(R.id.iv_step_thumbnail);
+    //    buttonLayout = rootView.findViewById(R.id.step_btn_layout);
+   //     stepImage= rootView.findViewById(R.id.iv_step_thumbnail);
         if (DetailActivity.twoPane) {
             buttonLayout.setVisibility(View.GONE);
         }
@@ -224,7 +236,30 @@ public class VideoFragment extends Fragment {
     }
 
 */
+ public void onActivityCreated (Bundle savedInstanceState) {
 
+     super.onActivityCreated(savedInstanceState);
+     getView().setFocusableInTouchMode(true);
+     getView().requestFocus();
+
+     getView().setOnKeyListener(new View.OnKeyListener() {
+         @Override
+         public boolean onKey(View v, int keyCode, KeyEvent event) {
+             if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                 if (keyCode == KeyEvent.KEYCODE_BACK) {
+                     //  Toast.makeText(getActivity(), "Back Pressed", Toast.LENGTH_SHORT).show();
+                //     getFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                     getFragmentManager().popBackStack();
+                //     Intent i = new Intent(getActivity(), MainActivity.class);
+               //      startActivity(i);
+
+                     return true;
+                 }
+             }
+             return false;
+         }
+     });
+ }
     private void setupExoPlayer(Uri videoUrlString) {
         if (videoUrlString == null) return;
         TrackSelector trackSelector = new DefaultTrackSelector();

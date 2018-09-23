@@ -43,8 +43,7 @@ public class RemoteService implements RemoteViewsService.RemoteViewsFactory {
 
     public RemoteService(Context ctxt,Intent intent) {
         this.ctxt=ctxt;
-        appWidgetId=intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,
-               AppWidgetManager.INVALID_APPWIDGET_ID);
+        appWidgetId=intent.getIntExtra("id",0);
     }
 
     @Override
@@ -111,7 +110,7 @@ public class RemoteService implements RemoteViewsService.RemoteViewsFactory {
         Gson gson = new Gson();
         List<recipe> recipes = gson.fromJson(jsonString, type);
 
-        return recipes.get(Id).getIngredients();
+        return recipes.get(appWidgetId).getIngredients();
     }
     @Override
     public void onDataSetChanged() {

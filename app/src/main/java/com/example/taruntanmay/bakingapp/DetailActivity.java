@@ -101,11 +101,5 @@ public class DetailActivity extends AppCompatActivity implements FragmentManager
         //This method is called when the up button is pressed. Just the pop back stack.
        return true;
     }
-    @Override
-    public void onBackPressed() {
-
-            super.onBackPressed();
-        //    InstructionFragment.onBackPressed();
-    }
 
 }

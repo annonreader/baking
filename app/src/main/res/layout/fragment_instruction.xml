@@ -2,11 +2,14 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/scroll_view"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#dedede"
+    >
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        >
 
         <TextView
             android:id="@+id/ingredientstext"
@@ -22,6 +25,8 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycleringredients"
             android:layout_width="match_parent"
+            android:background="#dedede"
+
             android:layout_height="wrap_content"
             android:layout_below="@+id/ingredientstext" />
 
@@ -39,6 +44,7 @@
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclersteps"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_steps_text" />

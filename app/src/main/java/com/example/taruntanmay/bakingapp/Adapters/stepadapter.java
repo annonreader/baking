@@ -14,6 +14,9 @@ import com.example.taruntanmay.bakingapp.json.*;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class stepadapter extends RecyclerView.Adapter<stepadapter.ViewHolder> {
     private List<steps> steps;
 
@@ -49,17 +52,21 @@ public class stepadapter extends RecyclerView.Adapter<stepadapter.ViewHolder> {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.stepid)
         TextView stepIdTv;
+        @BindView(R.id.stepdescription)
         TextView stepDescription;
+        @BindView(R.id.stepvideo)
         ImageView stepVideoImage;
         int stepId;
 
         public ViewHolder(final View itemView) {
             super(itemView);
 
-            stepIdTv = itemView.findViewById(R.id.tv_step_id);
-            stepDescription = itemView.findViewById(R.id.tv_step_description);
-            stepVideoImage = itemView.findViewById(R.id.iv_step_video);
+            ButterKnife.bind(this,itemView);
+        //    stepIdTv = itemView.findViewById(R.id.stepid);
+       //     stepDescription = itemView.findViewById(R.id.stepdescription);
+         //   stepVideoImage = itemView.findViewById(R.id.stepvideo);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

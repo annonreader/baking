@@ -24,11 +24,16 @@ import com.example.taruntanmay.bakingapp.json.recipe;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 import static android.widget.LinearLayout.HORIZONTAL;
 import static java.security.AccessController.getContext;
 
 public class InstructionFragment extends Fragment {
+    @BindView(R.id.recycleringredients)
     RecyclerView ingredientsRv;
+    @BindView(R.id.recyclersteps)
     RecyclerView stepsRv;
     DividerItemDecoration mDividerItemDecoration;
     LinearLayoutManager mLayoutManager;
@@ -40,8 +45,9 @@ public class InstructionFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_instruction, container, false);
         ((DetailActivity) getActivity()).getSupportActionBar().show();
-        ingredientsRv = (RecyclerView)rootView.findViewById(R.id.recycleringredients);
-        stepsRv = (RecyclerView)rootView.findViewById(R.id.recyclersteps);
+        ButterKnife.bind(this,rootView);
+      //  ingredientsRv = (RecyclerView)rootView.findViewById(R.id.recycleringredients);
+    //    stepsRv = (RecyclerView)rootView.findViewById(R.id.recyclersteps);
         mDividerItemDecoration = new DividerItemDecoration(ingredientsRv.getContext(),
                 HORIZONTAL);
         ingredientsRv.addItemDecoration(mDividerItemDecoration);

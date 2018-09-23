@@ -22,33 +22,33 @@
     android:paddingTop="10dp">
 
     <TextView
-        android:id="@+id/step_text"
+        android:id="@+id/steptext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/step"
         android:textSize="20sp" />
 
     <TextView
-        android:id="@+id/tv_step_id"
+        android:id="@+id/stepid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_toEndOf="@+id/step_text"
+        android:layout_toEndOf="@id/steptext"
         android:textSize="20sp"
         tools:text="1" />
 
     <TextView
-        android:id="@+id/tv_step_description"
+        android:id="@+id/stepdescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_marginStart="10dp"
-        android:layout_toEndOf="@+id/tv_step_id"
-        android:layout_toStartOf="@+id/iv_step_video"
+        android:layout_toEndOf="@id/stepid"
+        android:layout_toStartOf="@id/stepvideo"
         tools:text="Recipe Introduction" />
 
     <ImageView
-        android:id="@+id/iv_step_video"
+        android:id="@+id/stepvideo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"

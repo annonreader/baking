@@ -11,6 +11,9 @@ import com.example.taruntanmay.bakingapp.R;
 import java.util.List;
 import com.example.taruntanmay.bakingapp.json.*;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class ingredient extends RecyclerView.Adapter<ingredient.ViewHolder> {
     private List<ingredients> ingredients;
 
@@ -42,16 +45,21 @@ public class ingredient extends RecyclerView.Adapter<ingredient.ViewHolder> {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.ingredientquantity)
         TextView quantity;
+        @BindView(R.id.ingredientunit)
         TextView unit;
+        @BindView(R.id.ingredientdescription)
         TextView description;
 
 
         public ViewHolder(View itemView) {
             super(itemView);
-            quantity =itemView.findViewById(R.id.ingredientquantity);
-            unit = itemView.findViewById(R.id.ingredientunit);
-            description = itemView.findViewById(R.id.ingredientdescription);
+            ButterKnife.bind(this, itemView);
+
+           // quantity =itemView.findViewById(R.id.ingredientquantity);
+          //  unit = itemView.findViewById(R.id.ingredientunit);
+          //  description = itemView.findViewById(R.id.ingredientdescription);
         }
     }
 }

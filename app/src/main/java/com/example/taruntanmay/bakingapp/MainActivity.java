@@ -1,6 +1,7 @@
 package com.example.taruntanmay.bakingapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.Loader;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -29,13 +30,18 @@ import com.example.taruntanmay.bakingapp.Network.RecipeLoader;
 import com.example.taruntanmay.bakingapp.json.recipe;
 import com.google.gson.Gson;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 import static java.security.AccessController.getContext;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<recipe>> {
 
+    @BindView(R.id.layout_main)
     LinearLayout linearLayout;
   //  Toolbar toolbar;
-    RecyclerView recyclerView;
+  @BindView(R.id.recyclerecipe)
+  RecyclerView recyclerView;
 
     private static final String PREFERENCE_NAME = "recipesPref";
     private static final String PREFERENCE_KEY = "recipes";
@@ -48,8 +54,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        linearLayout = findViewById(R.id.layout_main);
-        recyclerView = findViewById(R.id.recyclerecipe);
+        ButterKnife.bind(this);
+      //  linearLayout = findViewById(R.id.layout_main);
+      //  recyclerView = findViewById(R.id.recyclerecipe);
 
         if (isConnected()) {
             getSupportLoaderManager().initLoader(0, null, this);
@@ -66,6 +73,16 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         }
+    }
+    @Override
+    public void onBackPressed() {
+
+        super.onBackPressed();
+       /* Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);*/
+       finishAffinity();
     }
 
     private void saveData(List<recipe> data) {

@@ -7,6 +7,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
@@ -18,6 +19,7 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.List;
 
+import static android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE;
 import static android.content.Context.MODE_PRIVATE;
 
 /**
@@ -41,10 +43,8 @@ public class BakingWidget extends AppWidgetProvider {
         int[] appWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget);
         updateRecipe(context);
         onUpdate(context, appWidgetManager, appWidgetIds);
-    }
-        /*if (MyOnClick.equals(intent.getAction())){//your onClick action is here
-         */
 
+    }
 
     private void updateRecipe(Context context) {
         SharedPreferences SharedPrefs = context.getSharedPreferences(PREFERENCE_NAME, MODE_PRIVATE);
@@ -74,11 +74,6 @@ public class BakingWidget extends AppWidgetProvider {
 
     }
 
-  /*  protected PendingIntent getPendingSelfIntent(Context context, String action) {
-        Intent intent = new Intent(context, getClass());
-        intent.setAction(action);
-        return PendingIntent.getBroadcast(context, 0, intent, 0);
-    }*/
 
 
     public void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
@@ -90,20 +85,12 @@ public class BakingWidget extends AppWidgetProvider {
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.baking_widget);
         String title = getIngredientsTitle(context);
         views.setTextViewText(R.id.widget_title, title);
-
         Intent intent = new Intent(context, WidgetService.class);
+        intent.putExtra("id",getId(context));
         views.setRemoteAdapter(R.id.widget_list, intent);
         appWidgetManager.updateAppWidget(appWidgetId, views);
-  /*      int id = getId(context);
-        List<recipe> rp = getIngredients(context);
-        List<ingredients> ig= rp.get(id).getIngredients();
-        views.setTextViewText(R.id.widget_detail,ig.get(0).getIngredient());*/
 
- /*       Intent intent = new Intent(context, RemoteService.class);
-     //   intent.putExtra("id",)
-        views.setRemoteAdapter(R.id.widget_list, intent);*/
 
-        // broadcast to update widget
        Intent updateRecipeIntent = new Intent();
         updateRecipeIntent.setAction(WIDGET_UPDATE_ACTION);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
@@ -111,6 +98,8 @@ public class BakingWidget extends AppWidgetProvider {
                 0,
                 updateRecipeIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
+    //    context.sendBroadcast(intent1);
+    //    views.setPendingIntentTemplate(R.id.widget_list, pendingIntent);
         views.setOnClickPendingIntent(R.id.widget_title, pendingIntent);
 
         // Instruct the widget manager to update the widget
@@ -199,13 +188,13 @@ public class BakingWidget extends AppWidgetProvider {
         List<recipe> recipes = gson.fromJson(jsonString , type);
        // updateingredients(recipes.get(recipeId).getIngredients(),recipeId);
         return recipes;
-    }
+    }*/
 
     public int getId(Context context) {
         SharedPreferences SharedPrefs = context.getSharedPreferences(PREFERENCE_NAME, MODE_PRIVATE);
         int recipeId = SharedPrefs.getInt(PREFERENCE_ID, 0);
         return recipeId;
-    }*/
+    }
 
 }
 
