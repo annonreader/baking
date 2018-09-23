@@ -1,8 +1,6 @@
 package com.example.taruntanmay.bakingapp;
 
 import android.content.Context;
-import android.content.Intent;
-import android.content.Loader;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.net.ConnectivityManager;
@@ -10,19 +8,17 @@ import android.net.NetworkInfo;
 
 import android.support.annotation.NonNull;
 import android.support.v4.app.LoaderManager;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.LinearLayout;
-import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
 
 import java.util.List;
+import java.util.Objects;
 
 
 import com.example.taruntanmay.bakingapp.Adapters.radapter;
@@ -32,8 +28,6 @@ import com.google.gson.Gson;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-import static java.security.AccessController.getContext;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<recipe>> {
 
@@ -101,13 +95,14 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         ConnectivityManager cm =
                 (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
 
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        NetworkInfo activeNetwork = Objects.requireNonNull(cm).getActiveNetworkInfo();
         boolean isConnected = activeNetwork != null &&
                 activeNetwork.isConnectedOrConnecting();
         return isConnected;
     }
 
 
+    @NonNull
     public android.support.v4.content.Loader<List<recipe>> onCreateLoader(int id, Bundle args) {
         return new RecipeLoader(this);
     }

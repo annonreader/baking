@@ -2,11 +2,10 @@ package com.example.taruntanmay.bakingapp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,21 +13,17 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.taruntanmay.bakingapp.Adapters.ingredient;
 import com.example.taruntanmay.bakingapp.Adapters.stepadapter;
-import com.example.taruntanmay.bakingapp.json.ingredients;
-import com.example.taruntanmay.bakingapp.json.steps;
 import com.example.taruntanmay.bakingapp.json.recipe;
 
-import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static android.widget.LinearLayout.HORIZONTAL;
-import static java.security.AccessController.getContext;
 
 public class InstructionFragment extends Fragment {
     @BindView(R.id.recycleringredients)
@@ -42,9 +37,9 @@ public class InstructionFragment extends Fragment {
     private recipe recipe;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_instruction, container, false);
-        ((DetailActivity) getActivity()).getSupportActionBar().show();
+        Objects.requireNonNull(((DetailActivity) getActivity()).getSupportActionBar()).show();
         ButterKnife.bind(this,rootView);
       //  ingredientsRv = (RecyclerView)rootView.findViewById(R.id.recycleringredients);
     //    stepsRv = (RecyclerView)rootView.findViewById(R.id.recyclersteps);
@@ -66,7 +61,7 @@ public class InstructionFragment extends Fragment {
     public void onActivityCreated (Bundle savedInstanceState) {
 
         super.onActivityCreated(savedInstanceState);
-        getView().setFocusableInTouchMode(true);
+        Objects.requireNonNull(getView()).setFocusableInTouchMode(true);
         getView().requestFocus();
 
         getView().setOnKeyListener(new View.OnKeyListener() {
@@ -75,7 +70,7 @@ public class InstructionFragment extends Fragment {
                 if (event.getAction() == KeyEvent.ACTION_DOWN) {
                     if (keyCode == KeyEvent.KEYCODE_BACK) {
                       //  Toast.makeText(getActivity(), "Back Pressed", Toast.LENGTH_SHORT).show();
-                        getFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                        Objects.requireNonNull(getFragmentManager()).popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                         Intent i = new Intent(getActivity(), MainActivity.class);
                         startActivity(i);
 
@@ -93,7 +88,7 @@ public class InstructionFragment extends Fragment {
         super.onViewStateRestored(savedInstanceState);
         if (savedInstanceState != null) {
             recipe = savedInstanceState.getParcelable(RECIPE);
-            ingredient adapter = new ingredient(recipe.getIngredients());
+            ingredient adapter = new ingredient(Objects.requireNonNull(recipe).getIngredients());
             ingredientsRv.setLayoutManager(new LinearLayoutManager(getContext()));
             ingredientsRv.setAdapter(adapter);
             stepadapter sadapter = new stepadapter(recipe.getSteps());
@@ -107,7 +102,7 @@ public class InstructionFragment extends Fragment {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelable(RECIPE,recipe);
     }

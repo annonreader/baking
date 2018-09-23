@@ -1,5 +1,6 @@
 package com.example.taruntanmay.bakingapp.Adapters;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,8 +22,9 @@ public class ingredient extends RecyclerView.Adapter<ingredient.ViewHolder> {
         this.ingredients = ingredients;
     }
 
+    @NonNull
     @Override
-    public ingredient.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ingredient.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View rootVIew = LayoutInflater
                 .from(parent.getContext())
                 .inflate(R.layout.item_ingredients, parent, false);
@@ -31,7 +33,7 @@ public class ingredient extends RecyclerView.Adapter<ingredient.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(ingredient.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ingredient.ViewHolder holder, int position) {
         ingredients currentItem = ingredients.get(position);
         holder.quantity.setText(currentItem.getQuantity());
         holder.unit.setText(currentItem.getMeasure());

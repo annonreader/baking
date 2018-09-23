@@ -7,19 +7,16 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.view.View;
 import android.widget.RemoteViews;
-import android.widget.Toast;
 
-import com.example.taruntanmay.bakingapp.json.ingredients;
 import com.example.taruntanmay.bakingapp.json.recipe;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.Objects;
 
-import static android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE;
 import static android.content.Context.MODE_PRIVATE;
 
 /**
@@ -175,7 +172,7 @@ public class BakingWidget extends AppWidgetProvider {
         Gson gson = new Gson();
         List<recipe> recipes = gson.fromJson(jsonString , type);
      //   updateingredients(recipes.get(recipeId).getIngredients(),recipeId);
-        return recipes.get(recipeId).getName();
+        return Objects.requireNonNull(recipes).get(recipeId).getName();
     }
 
 

@@ -2,6 +2,7 @@ package com.example.taruntanmay.bakingapp.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -30,8 +31,9 @@ public class radapter extends RecyclerView.Adapter <radapter.ViewHolder> {
         this.context = context;
     }
 
+    @NonNull
     @Override
-    public radapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public radapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater
                 .from(context)
                 .inflate(R.layout.item_recipe, parent, false);
@@ -39,7 +41,7 @@ public class radapter extends RecyclerView.Adapter <radapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(radapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull radapter.ViewHolder holder, int position) {
         recipe currentRecipe = recipes.get(position);
         holder.name.setText(currentRecipe.getName());
         holder.servingNum.setText("Servings: "+currentRecipe.getServingNum());

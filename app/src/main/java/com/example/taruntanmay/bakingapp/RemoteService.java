@@ -1,10 +1,8 @@
 package com.example.taruntanmay.bakingapp;
 
-import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
@@ -16,6 +14,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.Objects;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -110,7 +109,7 @@ public class RemoteService implements RemoteViewsService.RemoteViewsFactory {
         Gson gson = new Gson();
         List<recipe> recipes = gson.fromJson(jsonString, type);
 
-        return recipes.get(appWidgetId).getIngredients();
+        return Objects.requireNonNull(recipes).get(appWidgetId).getIngredients();
     }
     @Override
     public void onDataSetChanged() {

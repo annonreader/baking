@@ -1,9 +1,9 @@
 package com.example.taruntanmay.bakingapp;
 
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.text.TextUtils;
@@ -37,6 +37,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -66,7 +67,7 @@ public class VideoFragment extends Fragment {
     private int stepId;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.videoplayerfragment, container, false);
     /*    playerView = (SimpleExoPlayerView)rootView.findViewById(R.id.player_view);
         videoDescription=rootView.findViewById(R.id.tv_video_description);
@@ -239,7 +240,7 @@ public class VideoFragment extends Fragment {
  public void onActivityCreated (Bundle savedInstanceState) {
 
      super.onActivityCreated(savedInstanceState);
-     getView().setFocusableInTouchMode(true);
+     Objects.requireNonNull(getView()).setFocusableInTouchMode(true);
      getView().requestFocus();
 
      getView().setOnKeyListener(new View.OnKeyListener() {
@@ -249,7 +250,7 @@ public class VideoFragment extends Fragment {
                  if (keyCode == KeyEvent.KEYCODE_BACK) {
                      //  Toast.makeText(getActivity(), "Back Pressed", Toast.LENGTH_SHORT).show();
                 //     getFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                     getFragmentManager().popBackStack();
+                     Objects.requireNonNull(getFragmentManager()).popBackStack();
                 //     Intent i = new Intent(getActivity(), MainActivity.class);
                //      startActivity(i);
 
@@ -269,7 +270,7 @@ public class VideoFragment extends Fragment {
 
         DefaultBandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
         DataSource.Factory dataSourceFactory =
-                new DefaultDataSourceFactory(getContext(),
+                new DefaultDataSourceFactory(Objects.requireNonNull(getContext()),
                         Util.getUserAgent(getContext(),
                                 "BakingApp"), bandwidthMeter);
         ExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
@@ -306,7 +307,7 @@ public class VideoFragment extends Fragment {
         } else if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
             buttonLayout.setVisibility(View.GONE);
             playerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FILL);
-            ((DetailActivity) getActivity()).getSupportActionBar().hide();
+            Objects.requireNonNull(((DetailActivity) getActivity()).getSupportActionBar()).hide();
         }
     }
 
@@ -319,7 +320,7 @@ public class VideoFragment extends Fragment {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         if (step.hasVideo()) {
             videoPosition = player.getCurrentPosition();
@@ -361,7 +362,7 @@ public class VideoFragment extends Fragment {
             fragment.setSteps(steps);
             fragment.setStepId(--stepId);
             // make sure only save one videoFragment in backStack
-            FragmentManager manager = getActivity().getSupportFragmentManager();
+            FragmentManager manager = Objects.requireNonNull(getActivity()).getSupportFragmentManager();
         //    manager.popBackStack();
             manager.beginTransaction()
                     .replace(R.id.instruction_container, fragment)
@@ -378,7 +379,7 @@ public class VideoFragment extends Fragment {
             fragment.setSteps(steps);
             fragment.setStepId(++stepId);
             // make sure only save one videoFragment in backStack
-            FragmentManager manager = getActivity().getSupportFragmentManager();
+            FragmentManager manager = Objects.requireNonNull(getActivity()).getSupportFragmentManager();
       //      manager.popBackStack();
             manager.beginTransaction()
                     .replace(R.id.instruction_container, fragment)

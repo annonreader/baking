@@ -1,19 +1,15 @@
 package com.example.taruntanmay.bakingapp;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
 import android.widget.FrameLayout;
 
-import com.example.taruntanmay.bakingapp.json.ingredients;
 import com.example.taruntanmay.bakingapp.json.recipe;
-import com.google.gson.Gson;
 
-import java.util.List;
+import java.util.Objects;
 
 public class DetailActivity extends AppCompatActivity implements FragmentManager.OnBackStackChangedListener{
 
@@ -36,14 +32,14 @@ public class DetailActivity extends AppCompatActivity implements FragmentManager
         getSupportFragmentManager().addOnBackStackChangedListener(this);
         //Handle when activity is recreated like on orientation Change
         shouldDisplayHomeUp();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         recipe recipe;
         InstructionFragment instructionFragment;
         if (findViewById(R.id.video_container) != null) {
             twoPane = true;
             if (savedInstanceState == null) {
-                recipe = getIntent().getExtras().getParcelable(RECIPE);
+                recipe = Objects.requireNonNull(getIntent().getExtras()).getParcelable(RECIPE);
 
                 instructionFragment = new InstructionFragment();
                 VideoFragment videoFragment = new VideoFragment();
@@ -54,7 +50,7 @@ public class DetailActivity extends AppCompatActivity implements FragmentManager
                         .add(R.id.instruction_container, instructionFragment)
                         .commit();
 
-                videoFragment.setSteps(recipe.getSteps());
+                videoFragment.setSteps(Objects.requireNonNull(recipe).getSteps());
                 videoFragment.setStepId(INITIALIZED_STEP_ID);
                 getSupportFragmentManager()
                         .beginTransaction()
@@ -64,7 +60,7 @@ public class DetailActivity extends AppCompatActivity implements FragmentManager
         } else {
             twoPane = false;
             if (savedInstanceState == null) {
-                recipe = getIntent().getExtras().getParcelable(RECIPE);
+                recipe = Objects.requireNonNull(getIntent().getExtras()).getParcelable(RECIPE);
 
                 instructionFragment = new InstructionFragment();
                 instructionFragment.setRecipe(recipe);
@@ -87,7 +83,7 @@ public class DetailActivity extends AppCompatActivity implements FragmentManager
     public void shouldDisplayHomeUp(){
         //Enable Up button only  if there are entries in the back stack
         boolean canback = getSupportFragmentManager().getBackStackEntryCount()>0;
-        getSupportActionBar().setDisplayHomeAsUpEnabled(canback);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(canback);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.example.taruntanmay.bakingapp.Adapters;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,8 +25,9 @@ public class stepadapter extends RecyclerView.Adapter<stepadapter.ViewHolder> {
         this.steps = steps;
     }
 
+    @NonNull
     @Override
-    public stepadapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public stepadapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View rootView = LayoutInflater
                 .from(parent.getContext())
                 .inflate(R.layout.item_step, parent, false);
@@ -33,7 +35,7 @@ public class stepadapter extends RecyclerView.Adapter<stepadapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(stepadapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull stepadapter.ViewHolder holder, int position) {
         steps currentStep = steps.get(position);
         holder.stepIdTv.setText(currentStep.getStepId());
         holder.stepDescription.setText(currentStep.getShortDescription());
